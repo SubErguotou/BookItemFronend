@@ -5,11 +5,12 @@
       <div class="form">
         <div class="item">
           <i class="el-icon-user" style="font-size: 20px; color: #fff"></i>
-          <input type="text" placeholder="用户名" v-model="loginForm.userName"/>
+          <input type="text" placeholder="用户名" v-model="loginForm.username"/>
         </div>
+
         <div class="item">
           <i class="el-icon-lock" style="font-size: 20px; color: #fff"></i>
-          <input type="text" placeholder="密码" v-model="loginForm.userPasswd" />
+          <input type="text" placeholder="密码" v-model="loginForm.userpassword" />
         </div>
         <button v-on:click="login()">Login</button>
     </div>
@@ -24,8 +25,8 @@ export default {
   data() {
     return {
       loginForm: {
-        userName: "",
-        userPasswd: "",
+        username: "",
+        userpassword: "",
       },
       // 存储响应结果
       responseResult: [],
@@ -33,12 +34,14 @@ export default {
   },
   methods: {
     login() {
+
+      console.log(this.loginForm);
       // post请求，login路径，axios自带Promise
       this.$axios
         .post("/login", {
           // 携带的数据
-          username: this.loginForm.userName,
-          userPasswd: this.loginForm.userPasswd,
+          userName: this.loginForm.username,
+          userPassword: this.loginForm.userpassword,
         })
         // 异步,返回成功执行then里的函数，successResponse返回来的结果
         .then((successResponse) => {

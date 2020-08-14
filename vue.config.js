@@ -9,8 +9,8 @@ module.exports={
         hotOnly: false,
         proxy: {
           "/api": {
-            target: 'http://localhost:8081/', //API服务器的地址  http://www.web-jshtml.cn/api
-            changeOrigin: false, //是否开启跨域
+            target: 'http://localhost:8081/api', //API服务器的地址  http://www.web-jshtml.cn/api
+            changeOrigin: true, //是否开启跨域
             pathRewrite: {
             // 对 /api/users 的请求会将请求代理到 http://localhost:8081/api/users。
              // 如果不希望传递/api，则需要重写路径：
