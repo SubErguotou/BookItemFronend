@@ -30,24 +30,33 @@ export default {
       },
       // 存储响应结果
       responseResult: [],
+
+      test:{
+        username: "test",
+        password: "123456"
+      }
     };
   },
   methods: {
     login() {
-
+      const _this = this
       console.log(this.loginForm);
       // post请求，login路径，axios自带Promise
       this.$axios
         .post("/login", {
           // 携带的数据
-          userName: this.loginForm.username,
-          userPassword: this.loginForm.userpassword,
+          username: _this.loginForm.username,
+          password: _this.loginForm.userpassword,
         })
         // 异步,返回成功执行then里的函数，successResponse返回来的结果
         .then((successResponse) => {
           if (successResponse.data.code === 200) {
+            // 把用户数据保存在session里
+            _this.$store.commit('login', _this.loginForm)
+            // 获取前置钩子里保存的路径
+            const path = _this.$route.redirect
             // 执行路由跳转，跳转到首页
-            this.$router.replace({ path: "/index" });
+            this.$router.replace({ path: path === '/' || path === undefined ? '/index' : path });
           }
         })
         // 发送请求失败处理
@@ -74,7 +83,7 @@ export default {
   height: auto;
   margin: 0 auto;
   margin-top: 13%;
-  background: #00000090;
+  background: #00000000;
   padding: 20px 50px;
   text-align: center;
 

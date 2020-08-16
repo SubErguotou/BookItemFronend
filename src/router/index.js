@@ -14,7 +14,10 @@ const routes = [
   {
     path: '/index',
     name: 'AppIndex',
-    component: ()=> import('../components/home/Appindex.vue')
+    component: ()=> import('../components/home/Appindex.vue'),
+    meta: {
+      requireAuth: true
+    }
   }
 ];
 
