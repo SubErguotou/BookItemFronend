@@ -1,6 +1,8 @@
 <template>
   <div>
-      Hello World!
+      <h1>
+          library
+      </h1>
   </div>
 </template>
 
@@ -10,6 +12,6 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
+<style>
 
 </style>

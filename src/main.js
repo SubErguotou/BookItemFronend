@@ -14,6 +14,7 @@ Vue.config.productionTip = false;
 // 钩子函数 to: 目标路由对象， from：自身路由对象，
 
 router.beforeEach((to, from, next) => {
+  // 查询目标路由对象是否需要session进入
   if(to.meta.requireAuth){
     if(store.state.user.username){
       next()

@@ -73,7 +73,7 @@ export default {
   width: 100%;
   height: 100%;
 //   border: 1px solid #000;
-  background: url("../assets/img/小羽未2.jpg");
+  background: url("../assets/img/SummerPockets4.jpg");
   background-size: 100% auto;
    position: absolute;
 }

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from '../views/Login.vue';
+import Home from '../components/Home.vue';
 
 Vue.use(VueRouter);
 
@@ -12,12 +13,40 @@ const routes = [
     component: Login
   },
   {
-    path: '/index',
-    name: 'AppIndex',
-    component: ()=> import('../components/home/Appindex.vue'),
-    meta: {
-      requireAuth: true
-    }
+    path: '/home',
+    name: "Home",
+    component: Home,
+    // 重定向到子页面
+    redirect: '/index',
+    children: [
+      {
+        path: '/index',
+        name: 'Index',
+        component: () => import('../views/Appindex.vue'),
+        meta: {
+          // 标记是否需要session才能进入的页面
+          requireAuth: true
+        },
+        children: [
+          {
+            path: "/indexbody",
+            name: "IndexBody",
+            component: () => import("../components/appindex/Body.vue")
+          }
+        ]
+      },
+      {
+        path: '/note',
+        name: 'Note',
+        component: ()=>import('../views/Note.vue')
+      },
+      {
+        path: '/library',
+        name: "Library",
+        component: ()=>import("../views/Library.vue")
+      }
+
+    ]
   }
 ];
 
