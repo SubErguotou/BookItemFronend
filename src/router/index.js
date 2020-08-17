@@ -17,16 +17,17 @@ const routes = [
     name: "Home",
     component: Home,
     // 重定向到子页面
-    redirect: '/index',
+    redirect: '/indexbody',
     children: [
       {
         path: '/index',
         name: 'Index',
         component: () => import('../views/Appindex.vue'),
-        meta: {
-          // 标记是否需要session才能进入的页面
-          requireAuth: true
-        },
+        redirect: '/indexbody',
+        // meta: {
+        //   // 标记是否需要session才能进入的页面
+        //   requireAuth: true
+        // },
         children: [
           {
             path: "/indexbody",
