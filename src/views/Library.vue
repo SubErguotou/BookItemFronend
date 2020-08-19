@@ -52,10 +52,5 @@ export default {
     padding-right: 220px;
     // line-height: 160px;
   }
-
-  
-  // body > .el-container {
-  //   margin-bottom: 40px;
-  // }
   
 </style>

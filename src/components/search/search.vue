@@ -1,14 +1,30 @@
 <template>
   <div id="bg-purple">
-      <!-- 封装ElementUI搜索组件 -->
-    <el-input placeholder="请输入内容" suffix-icon="el-icon-search" size="large"></el-input>
-    <el-button type="primary">搜索</el-button>
+    <!-- 封装ElementUI搜索组件 -->
+    <el-input
+      placeholder="请输入内容"
+      suffix-icon="el-icon-search"
+      size="large"
+      v-model="keywords"
+      @keyup.enter.native="onCommit"
+    ></el-input>
+    <el-button type="primary" @click="onCommit">搜索</el-button>
   </div>
 </template>
 
 <script>
 export default {
   name: "Search",
+  data(){
+    return {
+      keywords: ""
+    }
+  },
+  methods: {
+    onCommit(){
+      this.$emit('onCommit', this.keywords);
+    }
+  },
 };
 </script>
 
