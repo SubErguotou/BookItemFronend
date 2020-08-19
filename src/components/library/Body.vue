@@ -1,6 +1,7 @@
 <template>
   <div>
       <Search />
+      <ClickForm />
     <div id="librarybody">
          <div class="blackDiv" v-for="(item, index) in books" :key="index">
       <el-tooltip effect="dark" placement="right">
@@ -36,9 +37,10 @@
 
 <script>
 import Search from '../search/search';
+import ClickForm from './CickForm';
 export default {
   name: "LibraryBody",
-  components: {Search},
+  components: {Search, ClickForm},
   data() {
     return {
       input: "",
@@ -176,6 +178,7 @@ export default {
 </script>
 
 <style lang="less" scope>
+
 #librarybody {
   display: flex;
   flex-direction: row;
