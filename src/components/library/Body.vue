@@ -41,6 +41,7 @@ import ClickForm from './CickForm';
 export default {
   name: "LibraryBody",
   components: {Search, ClickForm},
+  // props: ['ccategoryBooks'],
   data() {
     return {
       input: "",
@@ -72,6 +73,7 @@ export default {
       handleCurrentChange: function (currentPage) {
         this.currentPage = currentPage
         console.log(this.currentPage)
+        // console.log(this.ccategoryBooks);
       },
     searchRestul(keywords){
       const _this = this

@@ -2,11 +2,11 @@
   <div id="library">
     <el-container>
       <el-aside>
-        <LibrarySidebar />
+        <LibrarySidebar @SidebarIndex="sidebarMethod" ref="sidebar"/>
       </el-aside>
       <el-container>
         <el-main>
-          <LibraryBody />
+          <LibraryBody ref="LibraryBody"/>
         </el-main>
         <el-footer>我还没想好怎么写</el-footer>
       </el-container>
@@ -21,6 +21,25 @@ import LibraryBody from '../components/library/Body'
 export default {
   name: "Library",
   components: {LibrarySidebar, LibraryBody},
+  data() {
+    return {
+      categoryBooks: [],
+    }
+  },
+  methods: {
+    sidebarMethod(index){
+      // console.log();
+      let _this = this
+      let cid = index
+      let url = 'categories/'+cid+'/books'
+      this.$axios.get(url).then(resp => {
+        if(resp && resp.status === 200){
+          // console.log(resp.data);
+          _this.$refs.LibraryBody.books = resp.data;
+        }
+      })
+    }
+  }
 };
 </script>
 
