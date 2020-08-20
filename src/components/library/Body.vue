@@ -1,46 +1,54 @@
 <template>
   <div>
-      <Search @onCommit="searchRestul" />
-      <ClickForm />
+    <Search @onCommit="searchRestul" />
+    <ClickForm />
     <div id="librarybody">
-         <div class="blackDiv" v-for="(item, index) in books" :key="index">
-      <el-tooltip effect="dark" placement="right">
-        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.title}}</p>
-        <p slot="content" style="font-size: 13px;margin-bottom: 6px">
-          <span>{{item.author}}</span> /
-          <span>{{item.date}}</span> /
-          <span>{{item.press}}</span>
-        </p>
-        <p slot="content" style="width: 300px" class="abstract">{{item.abs}}</p>
-        <el-card class="card_class" bodyStyle="padding:10px" shadow="hover">
-          <div>
-            <img :src="item.cover" alt />
-          </div>
-          <div class="info">
-            <div class="title">
-              <a href>{{item.title}}</a>
+      <div
+        class="blackDiv"
+        v-for="(item, index) in books.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+        :key="index"
+      >
+        <el-tooltip effect="dark" placement="right">
+          <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.title}}</p>
+          <p slot="content" style="font-size: 13px;margin-bottom: 6px">
+            <span>{{item.author}}</span> /
+            <span>{{item.date}}</span> /
+            <span>{{item.press}}</span>
+          </p>
+          <p slot="content" style="width: 300px" class="abstract">{{item.abs}}</p>
+          <el-card class="card_class" bodyStyle="padding:10px" shadow="hover">
+            <div>
+              <img :src="item.cover" alt />
             </div>
-          </div>
-          <div class="author">{{item.author}}</div>
-        </el-card>
-      </el-tooltip>
+            <div class="info">
+              <div class="title">
+                <a href>{{item.title}}</a>
+              </div>
+            </div>
+            <div class="author">{{item.author}}</div>
+          </el-card>
+        </el-tooltip>
+      </div>
+      <div style="text-align: center; width: 900px;">
+        <el-row>
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-size="pagesize"
+            :total="books.length"
+          ></el-pagination>
+        </el-row>
+      </div>
     </div>
-    <div style="text-align: center; width: 900px;">
-      <el-row>
-        <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pagesize" :total="books.length" ></el-pagination>
-      </el-row>
-    </div>
-    </div>
-   
   </div>
 </template>
 
 <script>
-import Search from '../search/search';
-import ClickForm from './CickForm';
+import Search from "../search/search";
+import ClickForm from "./CickForm";
 export default {
   name: "LibraryBody",
-  components: {Search, ClickForm},
+  components: { Search, ClickForm },
   // props: ['ccategoryBooks'],
   data() {
     return {
@@ -49,49 +57,43 @@ export default {
       // 当前页数
       currentPage: 1,
       // 每页显示个数选择器的选项设置
-      pagesize: 2
+      pagesize: 10,
     };
   },
   // 页面初始化前
-  mounted: function(){
+  mounted: function () {
     this.loadBooks();
   },
-  methods:{
-    loadBooks(){
-      const _this = this
-      this.$axios.get('/books').then(
-        resp =>{
-          if(resp && resp.status === 200){
-            // console.log(resp.data);
-            // console.log(_this.books);
-            _this.books = resp.data
-            
-           }
+  methods: {
+    loadBooks() {
+      const _this = this;
+      this.$axios.get("/books").then((resp) => {
+        if (resp && resp.status === 200) {
+          // console.log(resp.data);
+          // console.log(_this.books);
+          _this.books = resp.data;
         }
-      )
+      });
     },
-      handleCurrentChange: function (currentPage) {
-        this.currentPage = currentPage
-        console.log(this.currentPage)
-        // console.log(this.ccategoryBooks);
-      },
-    searchRestul(keywords){
-      const _this = this
+    handleCurrentChange: function (currentPage) {
+      this.currentPage = currentPage;
+      console.log(this.currentPage);
+      // console.log(this.ccategoryBooks);
+    },
+    searchRestul(keywords) {
+      const _this = this;
       console.log(keywords);
-      this.$axios.get('/search?keywords='+ keywords).then(
-        resp => {
-          if(resp && resp.status === 200){
-            _this.books = resp.data
-          }
-        })
+      this.$axios.get("/search?keywords=" + keywords).then((resp) => {
+        if (resp && resp.status === 200) {
+          _this.books = resp.data;
+        }
+      });
     },
-
-  }
+  },
 };
 </script>
 
 <style lang="less" scope>
-
 #librarybody {
   display: flex;
   flex-direction: row;

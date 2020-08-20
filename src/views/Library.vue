@@ -36,6 +36,7 @@ export default {
         if(resp && resp.status === 200){
           // console.log(resp.data);
           _this.$refs.LibraryBody.books = resp.data;
+          console.log(resp.data);
         }
       })
     }
