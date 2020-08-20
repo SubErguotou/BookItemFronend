@@ -27,7 +27,7 @@
     </div>
     <div style="text-align: center; width: 900px;">
       <el-row>
-        <el-pagination :current-page="1" :page-size="10" :total="20"></el-pagination>
+        <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pagesize" :total="books.length" ></el-pagination>
       </el-row>
     </div>
     </div>
@@ -45,6 +45,10 @@ export default {
     return {
       input: "",
       books: [],
+      // 当前页数
+      currentPage: 1,
+      // 每页显示个数选择器的选项设置
+      pagesize: 2
     };
   },
   // 页面初始化前
@@ -57,14 +61,18 @@ export default {
       this.$axios.get('/books').then(
         resp =>{
           if(resp && resp.status === 200){
-            console.log(resp.data);
-            console.log(_this.books);
+            // console.log(resp.data);
+            // console.log(_this.books);
             _this.books = resp.data
             
            }
         }
       )
     },
+      handleCurrentChange: function (currentPage) {
+        this.currentPage = currentPage
+        console.log(this.currentPage)
+      },
     searchRestul(keywords){
       const _this = this
       console.log(keywords);
@@ -74,7 +82,8 @@ export default {
             _this.books = resp.data
           }
         })
-    }
+    },
+
   }
 };
 </script>
