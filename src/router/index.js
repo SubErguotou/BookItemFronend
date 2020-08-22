@@ -27,15 +27,19 @@ const routes = [
         name: 'Index',
         component: () => import('../views/Appindex.vue'),
         redirect: '/indexbody',
-        // meta: {
-        //   // 标记是否需要session才能进入的页面
-        //   requireAuth: true
-        // },
+        meta: {
+          // 标记是否需要session才能进入的页面
+          requireAuth: true
+        },
         children: [
           {
             path: "/indexbody",
             name: "IndexBody",
-            component: () => import("../components/appindex/Body.vue")
+            component: () => import("../components/appindex/Body.vue"),
+            meta: {
+              // 标记是否需要session才能进入的页面
+              requireAuth: true
+            },
           }
         ]
       },
@@ -47,7 +51,10 @@ const routes = [
       {
         path: '/library',
         name: "Library",
-        component: ()=>import("../views/Library.vue")
+        component: ()=>import("../views/Library.vue"),
+        meta: {
+          requireAuth: true
+        }
       }
 
     ]

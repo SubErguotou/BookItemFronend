@@ -17,6 +17,7 @@
         </el-form-item>
         <el-form-item label="封面" :label-width="formLabelWidth" prop="cover">
           <el-input v-model="form.cover" autocomplete="off" placeholder="图片 URL"></el-input>
+          <ImgUpdate @onUpload="uploadImg" ref="imgUpload"/>
         </el-form-item>
         <el-form-item label="简介" :label-width="formLabelWidth" prop="abs">
           <el-input type="textarea" v-model="form.abs" autocomplete="off"></el-input>
@@ -44,8 +45,10 @@
 </template>
 
 <script>
+import ImgUpdate from './ImUpdate'
 export default {
   name: "ClickForm",
+  components: {ImgUpdate},
   data() {
     return {
       dialogFormVisible: false,
@@ -96,6 +99,9 @@ export default {
           }
         })
         console.log(this.form);
+      },
+      uploadImg(){
+        this.form.cover = this.$refs.imgUpload.url
       }
   },
 };
